@@ -1,22 +1,21 @@
 import React from "react";
+import '../sass/_components/inputCustom.scss'
 
 interface Props{
     onChange: React.ChangeEventHandler,
-    onClick: React.MouseEventHandler,
     value?: string,
     placeholder?: string,
     className?: string,
     type? : string,
 }
 
-const InputCustom : React.FC<Props> = ({onChange, onClick, value, placeholder, className, type = 'text', ...otherProps}) => {
+const InputCustom : React.FC<Props> = ({onChange, value, placeholder, className, type = 'text', ...otherProps}) => {
     return(
         <input
         onChange={onChange}
-        onClick={onClick}
         value={value}
         placeholder={placeholder}
-        className={className}
+        className={`inputCustom${className ? ` ${className} ` : ''}`}
         type={type}
         {...otherProps}
         />

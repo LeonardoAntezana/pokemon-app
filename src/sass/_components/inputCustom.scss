@@ -1,0 +1,10 @@
+.inputCustom{
+    outline: none;
+    border: none;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    color: #f6e5e5;
+    &::placeholder{
+        color: #f6e5e5;
+    }
+}
