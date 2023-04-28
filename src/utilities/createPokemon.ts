@@ -6,13 +6,13 @@ export const createPokemon = (poke: any) => {
         abilities,
         name,
         base_experience,
-        sprites : { back_default, other : {dream_world : { front_default }}},
+        sprites : { front_default : front_mini, other : {dream_world : { front_default }}},
         types,
         stats : estadisticas,
         weight} = poke;
     let tipos = types.map((type: any) => type.type.name);
     let abs = abilities.map((ab: any) => ab.ability.name)
     let stats = estadisticas.map((st: any) => ({name: st.stat.name, value: st.base_stat})); 
-    const newPokemon = new Pokemon(id, name, base_experience, [back_default, front_default], tipos, abs, stats, weight);    
+    const newPokemon = new Pokemon(id, name, base_experience, [front_mini, front_default], tipos, abs, stats, weight);    
     return newPokemon;
 }
