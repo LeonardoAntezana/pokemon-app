@@ -4,7 +4,7 @@ import { createPokemon } from "../utilities/createPokemon"
 import { BASE_URL } from "../constants/endPoints"
 import { PokemonPromise } from "../models/pokemon.promise"
 import Pokemon from "../models/pokemon"
-import { InputCustom } from "../components"
+import { InputCustom, PokemonCard } from "../components"
 import '../sass/_pages/Home.scss'
 
 const Home = () => {
@@ -41,6 +41,9 @@ const Home = () => {
       placeholder='Buscar pokemon...'
       value={inputValue}
       />
+    </div>
+    <div className='container__pokemons'>
+      {pokemons?.length !== 0 && pokemons?.map((poke: Pokemon) => <PokemonCard key={poke.id} pokemon={poke} className='card'/>)}
     </div>
    </div>
   )
