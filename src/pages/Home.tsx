@@ -46,7 +46,11 @@ const Home = () => {
     <div className='container__pokemons'>
       {pokemons?.length !== 0 && pokemons?.map((poke: Pokemon) => {
         return(
-          <Link to={`/details/${poke.id}`} key={poke.id} className='card'>
+          <Link 
+          to={`/details/${poke.id}`}
+          state={{pokemon : poke}} 
+          key={poke.id} 
+          className='card'>
             <PokemonCard pokemon={poke} className='card'/>
           </Link>
         )
