@@ -6,26 +6,27 @@ import { PokemonPromise } from "../models/pokemon.promise"
 import Pokemon from "../models/pokemon"
 import { InputCustom, PokemonCard } from "../components"
 import '../sass/_pages/Home.scss'
+import { Link } from "react-router-dom"
 
 const Home = () => {
 
-  const [request, setRequest] = useState<string>(BASE_URL)
+  const [request, setRequest] = useState<string>('pokemon')
   const [inputValue, setInputValue] = useState<string>('')
   const [pokemons, setPokemons] = useState<Pokemon[]>()
   
-  const onHandleChange = (event : ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value)
-
   const transformData = async () => {
-    const data = await fetch(BASE_URL + 'pokemon').then(res => res.json());
+    const data = await fetch(BASE_URL + request).then(res => res.json());
     const promises: PokemonPromise[] = data.results.map( async (poke: PokemonPromise) => resolvePokemon(poke));
     const dataResolve = await Promise.all(promises);
     const newPokemons = dataResolve.map(pokemon => createPokemon(pokemon));
     setPokemons(newPokemons);
   }
-
+  
   useEffect(() => {
     transformData();
   }, [])
+  
+  const onHandleChange = (event : ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value)
 
   return (
    <div className='home'>
@@ -43,7 +44,13 @@ const Home = () => {
       />
     </div>
     <div className='container__pokemons'>
-      {pokemons?.length !== 0 && pokemons?.map((poke: Pokemon) => <PokemonCard key={poke.id} pokemon={poke} className='card'/>)}
+      {pokemons?.length !== 0 && pokemons?.map((poke: Pokemon) => {
+        return(
+          <Link to={`/details/${poke.id}`} key={poke.id} className='card'>
+            <PokemonCard pokemon={poke} className='card'/>
+          </Link>
+        )
+      })}
     </div>
    </div>
   )
