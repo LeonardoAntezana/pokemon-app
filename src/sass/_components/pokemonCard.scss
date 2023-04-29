@@ -1,12 +1,28 @@
+@import '../variables';
+
 .pokemonCard{
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: 2rem;
     align-items: center;
-    gap: 1rem;
-    background-color: #fff;
+    justify-content: space-between;
+    background-color: $color-secondary;
+    .pokemonCard__title{
+        font-size: $font-ml;
+        text-transform: capitalize;
+    }
     .image{
         width: 80%;
-        height: 80%;
+        height: 60%;
     }
+    .pokemonCard__types{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        span{
+            font-size: $font-medium;
+        }
+    }
+
 }
