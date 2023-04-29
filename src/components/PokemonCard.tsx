@@ -1,5 +1,6 @@
 import { FC } from "react"
 import Pokemon from "../models/pokemon"
+import Title from "./Title"
 import '../sass/_components/pokemonCard.scss'
 
 interface Props {
@@ -14,7 +15,7 @@ const PokemonCard: FC<Props> = ({ pokemon, className, onClick }) => {
     <div
     className={`pokemonCard${className ? ` ${className}`: ''}`}  
     onClick={() => onClick && onClick(id)}>
-      <h1 className='pokemonCard__title'>{name}</h1>
+      <Title>{name}</Title>
       <img className='image' src={`${images[1]}`}/>
       <div className='pokemonCard__types'>
         {types.map((type, index) => <span key={index}>{type}</span>)}
