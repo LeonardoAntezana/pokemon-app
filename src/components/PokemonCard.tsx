@@ -14,9 +14,9 @@ const PokemonCard: FC<Props> = ({ pokemon, className, onClick }) => {
     <div
     className={`pokemonCard${className ? ` ${className}`: ''}`}  
     onClick={() => onClick && onClick(id)}>
-      <h1>{name}</h1>
+      <h1 className='pokemonCard__title'>{name}</h1>
       <img className='image' src={`${images[1]}`}/>
-      <div>
+      <div className='pokemonCard__types'>
         {types.map((type, index) => <span key={index}>{type}</span>)}
       </div>
     </div>
