@@ -1,0 +1,26 @@
+@import '../variables';
+@import '../mixins';
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+
+  .stat__name {
+    flex: 0.5;
+    text-transform: capitalize;
+    font-size: $font-medium;
+
+  }
+
+  .stat__container__value {
+    flex: 1;
+    background-color: #fff;
+    @include box-radius;
+
+    .stat__value {
+      height: 100%;
+      transition: all 0.5s ease;
+      background-color: $color-primary;
+    }
+  }
+}

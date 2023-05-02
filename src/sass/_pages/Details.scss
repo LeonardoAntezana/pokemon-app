@@ -22,7 +22,10 @@
     .container__stats{
       background-color: $color-secondary;
       grid-column: 1 / 3;
+      padding: 2rem;
       @include box-radius;
+      @include flex-column-center;
+      gap: 2rem;
     }
   }
 }
