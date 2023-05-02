@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
-import { Title, Carousel } from "../components";
+import { Title, Carousel, Stat } from "../components";
+import { StatPokemon } from "../models/pokemon.stat";
 import '../sass/_pages/Details.scss'
 
 const Details = () => {
@@ -8,10 +9,12 @@ const Details = () => {
 
   const { id, name, base_experience, images, types, abilities, stats, weight } = pokemon;
 
+  const filterImages = images.filter((pic: string, index: number) => index !== 0)
+
   return (
     <div className='container'>
       <div className='box'>
-        <Carousel images={images}/>
+        <Carousel images={filterImages}/>
         <div className='info'>
           <Title>{name}</Title>
           <div>
@@ -24,7 +27,7 @@ const Details = () => {
           </div>
         </div>
         <div className='container__stats'>
-          grafico Stats
+          {stats.map((st: StatPokemon, index: number) => <Stat key={index} stat={st}/>)}
         </div>
       </div>
     </div>
