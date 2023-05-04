@@ -12,7 +12,7 @@ const Stat: FC<Props> = ({ stat }) => {
     <div className='stat'>
       <span className='stat__name'>{name}</span>
       <div className='stat__container__value'>
-        <div className='stat__value' style={{width: `${value * 3}px`}}></div>
+        <div className='stat__value' style={{width: `${value * 2}px`, maxWidth: '95%'}}></div>
       </div>
     </div>
   )
