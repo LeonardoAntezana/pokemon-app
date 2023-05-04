@@ -1,6 +1,6 @@
-import '../sass/_components/navbar.scss'
 import { NavLink } from 'react-router-dom';
 import { BsFillStarFill } from 'react-icons/bs'
+import '../sass/_components/navbar.scss'
 
 const Navbar = () => {
   return (
