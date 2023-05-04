@@ -1,0 +1,13 @@
+@import '../variables';
+@import '../mixins';
+
+.buttonCustom{
+  padding: 2rem;
+  font-size: $font-medium;
+  text-transform: uppercase;
+  background-color: $color-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  @include box-radius;
+}
