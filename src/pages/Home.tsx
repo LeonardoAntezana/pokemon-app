@@ -1,44 +1,60 @@
-import { ChangeEvent, useState, useEffect, useRef, FormEventHandler } from "react"
-import { resolvePokemon } from "../utilities/resolvePokemon"
-import { createPokemon } from "../utilities/createPokemon"
-import { BASE_URL } from "../constants/endPoints"
-import { PokemonPromise } from "../models/pokemon.promise"
-import Pokemon from "../models/pokemon"
-import { InputCustom, PokemonCard } from "../components"
-import '../sass/_pages/Home.scss'
+import { ChangeEvent, useState, useEffect, useRef } from "react"
+import { transformData, getDataRequest, getTypes } from "../utilities"
 import { Link } from "react-router-dom"
+import { BASE_URL } from "../constants/endPoints"
+import { InputCustom, PokemonCard } from "../components"
+import Pokemon from "../models/pokemon"
+import { PokemonPromise } from "../models/pokemon.promise"
+import { MagnifyingGlass } from "react-loader-spinner"
+import '../sass/_pages/Home.scss'
 
 const Home = () => {
 
   const [request, setRequest] = useState<string>('pokemon')
-  const [pokemons, setPokemons] = useState<Pokemon[]>()
+  const [pokemons, setPokemons] = useState<Pokemon[]>([])
+  const [types, setTypes] = useState<string[]>();
   const inputValue = useRef<string>();
 
-  const transformData = async () => {
-    const data = await fetch(BASE_URL + request).then(res => res.json());
-    const promises: PokemonPromise[] = data.results.map(async (poke: PokemonPromise) => resolvePokemon(poke));
-    const dataResolve = await Promise.all(promises);
-    const newPokemons = dataResolve.map(pokemon => createPokemon(pokemon));
-    setPokemons(newPokemons);
+  const getPokemons = async (url: string) => {
+    const data = await getDataRequest(url);
+    try {
+      const pokes = await transformData(data.results);
+      setPokemons(pokes);
+    }
+    catch {
+      const pokes: PokemonPromise[] = data.pokemon.map((poke: any) => poke.pokemon);
+      const res = await transformData(pokes);
+      setPokemons(res);
+    }
   }
 
+  const getTypesPokemon = async (url: string) => {
+    const types = await getTypes(url);
+    setTypes(types);
+  }
+
+  // CARGA DE POKEMONS
   useEffect(() => {
-    transformData();
+    getPokemons(BASE_URL + request);
   }, [request])
+
+  // CARGA DE TIPOS DE POKEMONS PARA MANEJAR OPTIONS
+  useEffect(() => {
+    getTypesPokemon(BASE_URL + 'type');
+  }, [])
 
   const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => inputValue.current = event.target.value;
 
-  const onHandleSelect = (event: ChangeEvent<HTMLSelectElement>) => {}
+  const onHandleSelect = (event: ChangeEvent<HTMLSelectElement>) => setRequest(`type/${event.target.value}`);
 
   return (
     <div className='home'>
       <div className='filters'>
         <select
           onChange={onHandleSelect}
-          className='home__select'>
-          <option value="Ninguno">Ninguno</option>
-          <option value="Planta">Planta</option>
-          <option value="Fuego">Fuego</option>
+          className='home__select'
+        >
+          {types?.map((t, index) => <option key={index} value={t}>{t}</option>)}
         </select>
         <InputCustom
           onChange={onHandleChange}
@@ -47,19 +63,25 @@ const Home = () => {
           value={inputValue.current}
         />
       </div>
-      <div className='container__pokemons'>
-        {pokemons?.length !== 0 && pokemons?.map((poke: Pokemon) => {
-          return (
-            <Link
-              to={`/details/${poke.id}`}
-              state={{ pokemon: poke }}
-              key={poke.id}
-              className='card'>
-              <PokemonCard pokemon={poke} className='card' />
-            </Link>
-          )
-        })}
-      </div>
+      {pokemons.length === 0
+        ? <MagnifyingGlass color='black' height={150} width={150} />
+        : <div className='container__pokemons'>
+          {pokemons.map((poke: Pokemon) => {
+            return (
+              <Link
+                to={`/details/${poke.id}`}
+                state={{ pokemon: poke }}
+                key={poke.id}
+                className='card'>
+                <PokemonCard pokemon={poke} className='card' />
+              </Link>
+            )
+          })}
+        </div>
+      }
+
+
+
     </div>
   )
 }
