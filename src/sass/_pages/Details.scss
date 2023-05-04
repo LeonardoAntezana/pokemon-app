@@ -4,13 +4,14 @@
 .container{
   background-color: $color-dark;
   padding: 8rem 0;
+  margin-bottom: 6rem;
   .box{
     width: 70%;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
     grid-template-rows: auto;
-    gap: 2rem;
+    gap: 2.5rem;
     .info{
       background-color: $color-secondary;
       @include box-radius;
@@ -26,6 +27,11 @@
       @include box-radius;
       @include flex-column-center;
       gap: 2rem;
+    }
+    .buttonAdd{
+      grid-column: 1 / 3;
+      width: 50%;
+      margin: auto;
     }
   }
 }

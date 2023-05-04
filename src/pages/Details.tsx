@@ -1,9 +1,15 @@
 import { useLocation } from "react-router-dom";
-import { Title, Carousel, Stat } from "../components";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { addFavorite, deleteFavorite } from "../redux/slices/favoritesSlice";
+import { Title, Carousel, Stat, ButtonCustom } from "../components";
 import { StatPokemon } from "../models/pokemon.stat";
+import { AiTwotoneStar } from 'react-icons/ai'
 import '../sass/_pages/Details.scss'
 
 const Details = () => {
+  
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector(state => state.favorites.value);
 
   const { state: { pokemon } } = useLocation();
 
@@ -11,10 +17,14 @@ const Details = () => {
 
   const filterImages = images.filter((pic: string, index: number) => index !== 0)
 
+  const pokemonInState = () => favorites.some(poke => poke.id === id)
+
+  const onHandleFav = () => pokemonInState() ? dispatch(deleteFavorite(id)) : dispatch(addFavorite(pokemon))
+
   return (
     <div className='container'>
       <div className='box'>
-        <Carousel images={filterImages}/>
+        <Carousel images={filterImages} />
         <div className='info'>
           <Title>{name}</Title>
           <div>
@@ -27,8 +37,14 @@ const Details = () => {
           </div>
         </div>
         <div className='container__stats'>
-          {stats.map((st: StatPokemon, index: number) => <Stat key={index} stat={st}/>)}
+          {stats.map((st: StatPokemon, index: number) => <Stat key={index} stat={st} />)}
         </div>
+        <ButtonCustom
+          onClick={onHandleFav}
+          className='buttonAdd'>
+          agregar a favoritos
+          <AiTwotoneStar size={25} color={pokemonInState() ? 'red' : 'white'}/>
+        </ButtonCustom>
       </div>
     </div>
   )
