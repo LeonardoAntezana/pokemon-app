@@ -10,7 +10,7 @@
     margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-    grid-template-rows: auto;
+    grid-template-rows: 30rem auto;
     gap: 2.5rem;
     .info{
       background-color: $color-secondary;

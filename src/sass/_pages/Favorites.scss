@@ -1,0 +1,18 @@
+@import '../mixins';
+@import '../variables';
+
+.favorites__screen{
+  @include flex-column-center;
+  gap: 5rem;
+  &__title{
+    font-size: $font-large;
+    color: $color-light-secondary;
+  }
+  .favorites__container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 0.5fr));
+    grid-auto-rows: 45rem;
+    justify-content: center;
+    gap: 5rem;
+  }
+}
