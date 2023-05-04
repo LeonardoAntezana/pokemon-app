@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Navbar } from './components'
+import { Navbar, Footer } from './components'
 import './app.scss'
 
 import Home from './pages/Home'
@@ -16,6 +16,7 @@ function App() {
           <Route path='/details/:idPokemon' Component={Details}/>
           <Route path='/favorites' Component={Favorites}/>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </div>
   )
