@@ -1,6 +1,6 @@
 @import '../variables';
 
-.pokemonCard{
+.pokemonCard {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -8,15 +8,20 @@
     align-items: center;
     justify-content: space-between;
     background-color: $color-secondary;
-    .image{
+    border-radius: 5px;
+    border-bottom-left-radius: 4rem;
+    border-top-right-radius: 4rem;
+    .image {
         width: 80%;
         height: 60%;
     }
-    .pokemonCard__types{
+
+    .pokemonCard__types {
         width: 100%;
         display: flex;
         justify-content: space-evenly;
-        span{
+
+        span {
             font-size: $font-medium;
         }
     }
