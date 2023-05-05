@@ -1,16 +1,17 @@
 import { ChangeEvent, useState, useEffect, useRef } from "react"
+import { BASE_URL } from "../constants/endPoints"
 import { transformData, getDataRequest, getTypes } from "../utilities"
 import { Link } from "react-router-dom"
-import { BASE_URL } from "../constants/endPoints"
-import { InputCustom, PokemonCard } from "../components"
 import Pokemon from "../models/pokemon"
 import { PokemonPromise } from "../models/pokemon.promise"
+import { InputCustom, PokemonCard } from "../components"
 import { MagnifyingGlass } from "react-loader-spinner"
 import '../sass/_pages/Home.scss'
 
 const Home = () => {
 
-  const [request, setRequest] = useState<string>('pokemon')
+  const offSet = useRef<number>(0);
+  const [request, setRequest] = useState<string>(`pokemon?limit=12&offset=${offSet.current}`)
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const [types, setTypes] = useState<string[]>();
   const inputValue = useRef<string>();
@@ -24,7 +25,7 @@ const Home = () => {
     catch {
       const pokes: PokemonPromise[] = data.pokemon.map((poke: any) => poke.pokemon);
       const res = await transformData(pokes);
-      setPokemons(res);
+      setPokemons(res.slice(0, 12));
     }
   }
 
