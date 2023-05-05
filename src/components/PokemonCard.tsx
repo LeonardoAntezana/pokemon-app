@@ -1,6 +1,7 @@
 import { FC } from "react"
+import { selectBackgroundColor } from "../utilities"
 import Pokemon from "../models/pokemon"
-import Title from "./Title"
+import { WraperRadius, Title } from "."
 import '../sass/_components/pokemonCard.scss'
 
 interface Props {
@@ -10,13 +11,18 @@ interface Props {
 
 const PokemonCard: FC<Props> = ({ pokemon, className }) => {
   const { name, images, types } = pokemon;
+  const color = selectBackgroundColor(types);
   return (
     <div
-    className={`pokemonCard${className ? ` ${className}`: ''}`}>
-      <Title>{name}</Title>
-      <img className='image' src={`${images[1]}`}/>
+      className={`pokemonCard${className ? ` ${className}` : ''}`}
+      style={{ backgroundColor: color, color: color }}
+    >
+      <WraperRadius backgroundColor="white">
+        <Title>{name}</Title>
+      </WraperRadius>
+      <img className='image' src={`${images[1]}`} />
       <div className='pokemonCard__types'>
-        {types.map((type, index) => <span key={index}>{type}</span>)}
+        {types.map((type, index) => <WraperRadius className='type' key={index}>{type}</WraperRadius>)}
       </div>
     </div>
   )

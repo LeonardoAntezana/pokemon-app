@@ -7,7 +7,6 @@
     padding: 2rem;
     align-items: center;
     justify-content: space-between;
-    background-color: $color-secondary;
     border-radius: 5px;
     border-bottom-left-radius: 4rem;
     border-top-right-radius: 4rem;
@@ -21,8 +20,9 @@
         display: flex;
         justify-content: space-evenly;
 
-        span {
+        .type{
             font-size: $font-medium;
+            padding: 0.5rem 1rem;
         }
     }
 

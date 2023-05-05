@@ -6,3 +6,4 @@ export { default as Navbar } from './Navbar';
 export { default as PokemonCard } from './PokemonCard';
 export { default as Stat } from './Stat';
 export { default as Title } from './Title';
+export { default as WraperRadius } from './WraperRadius';
