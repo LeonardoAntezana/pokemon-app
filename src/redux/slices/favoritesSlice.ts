@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { getLocalStorage, setLocalStorage } from "../../utilities";
 import Pokemon from "../../models/pokemon";
 
 interface FavoritesState {
@@ -7,7 +7,7 @@ interface FavoritesState {
 }
 
 const initialState: FavoritesState = {
-  value: []
+  value: getLocalStorage('favorites', []),
 }
 
 export const favoritesSlice = createSlice({
@@ -15,12 +15,14 @@ export const favoritesSlice = createSlice({
   initialState,
   reducers: {
     addFavorite: (state, action: PayloadAction<Pokemon>) => {
+      setLocalStorage('favorites', [...state.value, action.payload])
       return {
         value: [...state.value, action.payload]
       }
     },
     deleteFavorite: (state, action: PayloadAction<number>) => {
       const filter = state.value.filter(poke => poke.id !== action.payload);
+      setLocalStorage('favorites', filter);
       return {
         value: filter
       }
