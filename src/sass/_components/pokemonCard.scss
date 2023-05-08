@@ -10,6 +10,39 @@
     border-radius: 5px;
     border-bottom-left-radius: 4rem;
     border-top-right-radius: 4rem;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    &::after {
+        content: 'Ver mas';
+        font-size: $font-large;
+        color: black;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background-color: rgba(48, 45, 45, 0.35);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        border-bottom-left-radius: 4rem;
+        border-top-right-radius: 4rem;
+        transform: translateY(10%);
+        opacity: 0;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    &:hover {
+        transform: rotate(-2deg);
+        box-shadow: 0px 0px 10px 0px $color-light-secondary;
+    }
+    &:hover::after{
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+
     .image {
         width: 80%;
         height: 60%;
@@ -20,7 +53,7 @@
         display: flex;
         justify-content: space-evenly;
 
-        .type{
+        .type {
             font-size: $font-medium;
             padding: 0.5rem 1rem;
         }
