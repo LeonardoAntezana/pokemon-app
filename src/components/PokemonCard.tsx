@@ -20,7 +20,7 @@ const PokemonCard: FC<Props> = ({ pokemon, className }) => {
       <WraperRadius backgroundColor="white">
         <Title>{name}</Title>
       </WraperRadius>
-      <img className='image' src={`${images[1]}`} />
+      <img className='image' src={images[1] ? images[1] : images[0]} />
       <div className='pokemonCard__types'>
         {types.map((type, index) => <WraperRadius className='type' key={index}>{type}</WraperRadius>)}
       </div>

@@ -16,6 +16,14 @@ const Carousel: FC<Props> = ({ images, className }) => {
 
   const prevImage = () => translateX + 130 <= 0 && setTranslateX(state => state + 130);
 
+  if(images.length === 1){
+    return(
+      <div className='container__images'>
+        <img src={images[0]}/>
+      </div>
+    )
+  }
+
   return (
     <div className={`carousel${className ? ` ${className}` : ''}`}>
       <button
@@ -36,6 +44,7 @@ const Carousel: FC<Props> = ({ images, className }) => {
       </button>
     </div>
   )
+
 }
 
 export default Carousel;
