@@ -6,6 +6,7 @@ import Pokemon from "../models/pokemon"
 import { PokemonPromise } from "../models/pokemon.promise"
 import { InputCustom, ButtonCustom, PokemonCard } from "../components"
 import { MagnifyingGlass } from "react-loader-spinner"
+import { ImSearch } from 'react-icons/im'
 import '../sass/_pages/Home.scss'
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
   const [request, setRequest] = useState<string>(`pokemon?limit=12&offset=${offSet.current}`)
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const [types, setTypes] = useState<string[]>();
-  const inputValue = useRef<string>();
+  const inputValue = useRef<string>('');
 
   const getPokemons = async (url: string) => {
     setPokemons([]);
@@ -27,6 +28,16 @@ const Home = () => {
       const pokes: PokemonPromise[] = data.pokemon.map((poke: any) => poke.pokemon);
       const res = await transformData(pokes);
       setPokemons(res.slice(offSet.current, 12));
+    }
+  }
+
+  const getAllPokemons = async (url: string, name: string) => {
+    if (name) {
+      setPokemons([]);
+      const data = await getDataRequest(url);
+      const filterPokes = data.results.filter((poke: PokemonPromise) => poke.name.includes(name));
+      const res = await transformData(filterPokes);
+      setPokemons(res);
     }
   }
 
@@ -49,8 +60,6 @@ const Home = () => {
 
   const onHandleSelect = (event: ChangeEvent<HTMLSelectElement>) => setRequest(`type/${event.target.value}`);
 
- 
-
   return (
     <div className='home'>
       <div className='filters'>
@@ -60,20 +69,27 @@ const Home = () => {
         >
           {types?.map((t, index) => <option key={index} value={t}>{t}</option>)}
         </select>
-        <InputCustom
-          onChange={onHandleChange}
-          className='input__search'
-          placeholder='Buscar pokemon...'
-          value={inputValue.current}
-        />
+        <div className="container__search">
+          <InputCustom
+            onChange={onHandleChange}
+            className='input__search'
+            placeholder='Buscar pokemon...'
+            type="search"
+          />
+          <ButtonCustom
+            onClick={() => getAllPokemons(BASE_URL + 'pokemon?limit=1000&offset=0', inputValue.current)}
+            className='button__search'>
+            <ImSearch color='#fff' />
+          </ButtonCustom>
+        </div>
       </div>
       <div className='pagination'>
-          <ButtonCustom onClick={() => {}}>1</ButtonCustom>
-          <ButtonCustom onClick={() => {}}>2</ButtonCustom>
-          <ButtonCustom onClick={() => {}}>3</ButtonCustom>
-          <ButtonCustom onClick={() => {}}>4</ButtonCustom>
-          <ButtonCustom onClick={() => {}}>5</ButtonCustom>
-        </div>
+        <ButtonCustom onClick={() => { }}>1</ButtonCustom>
+        <ButtonCustom onClick={() => { }}>2</ButtonCustom>
+        <ButtonCustom onClick={() => { }}>3</ButtonCustom>
+        <ButtonCustom onClick={() => { }}>4</ButtonCustom>
+        <ButtonCustom onClick={() => { }}>5</ButtonCustom>
+      </div>
       {pokemons.length === 0
         ? <MagnifyingGlass color='black' height={150} width={150} />
         : <div className='container__pokemons'>

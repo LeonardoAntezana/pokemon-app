@@ -10,6 +10,11 @@
     font-weight: bold;
     color: $color-secondary;
     text-align: center;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+      color: #fff;
+      text-shadow: 0 0 3rem $color-dark;
+    }
   }
   &__right{
     background-color: $color-dark;
