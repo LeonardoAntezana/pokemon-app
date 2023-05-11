@@ -3,6 +3,7 @@ export { default as Carousel } from './Carousel';
 export { default as Footer } from './Footer';
 export { default as InputCustom } from './InputCustom';
 export { default as Navbar } from './Navbar';
+export { default as Pagination } from './Pagination';
 export { default as PokemonCard } from './PokemonCard';
 export { default as Stat } from './Stat';
 export { default as Title } from './Title';

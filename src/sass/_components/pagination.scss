@@ -1,0 +1,17 @@
+@import '../variables';
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  .page{
+    transition: all 0.2s ease-in;
+    &:hover{
+      color: #fff;
+    }
+  }
+  .actualPage{
+    background-color: $color-dark;
+    color: #fff;
+  }
+}
