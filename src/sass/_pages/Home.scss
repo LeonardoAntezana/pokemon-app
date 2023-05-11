@@ -26,9 +26,14 @@
             font-size: $font-medium;
         }
     }
+    .pagination{
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
     .container__pokemons{
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(28rem, 0.7fr));
+        grid-template-columns: repeat(auto-fill, minmax(24rem, 0.7fr));
         grid-auto-rows: 32rem;
         justify-content: center;
         gap: 4rem;

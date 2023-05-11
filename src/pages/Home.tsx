@@ -4,7 +4,7 @@ import { transformData, getDataRequest, getTypes } from "../utilities"
 import { Link } from "react-router-dom"
 import Pokemon from "../models/pokemon"
 import { PokemonPromise } from "../models/pokemon.promise"
-import { InputCustom, PokemonCard } from "../components"
+import { InputCustom, ButtonCustom, PokemonCard } from "../components"
 import { MagnifyingGlass } from "react-loader-spinner"
 import '../sass/_pages/Home.scss'
 
@@ -17,6 +17,7 @@ const Home = () => {
   const inputValue = useRef<string>();
 
   const getPokemons = async (url: string) => {
+    setPokemons([]);
     const data = await getDataRequest(url);
     try {
       const pokes = await transformData(data.results);
@@ -25,7 +26,7 @@ const Home = () => {
     catch {
       const pokes: PokemonPromise[] = data.pokemon.map((poke: any) => poke.pokemon);
       const res = await transformData(pokes);
-      setPokemons(res.slice(0, 12));
+      setPokemons(res.slice(offSet.current, 12));
     }
   }
 
@@ -48,6 +49,8 @@ const Home = () => {
 
   const onHandleSelect = (event: ChangeEvent<HTMLSelectElement>) => setRequest(`type/${event.target.value}`);
 
+ 
+
   return (
     <div className='home'>
       <div className='filters'>
@@ -64,6 +67,13 @@ const Home = () => {
           value={inputValue.current}
         />
       </div>
+      <div className='pagination'>
+          <ButtonCustom onClick={() => {}}>1</ButtonCustom>
+          <ButtonCustom onClick={() => {}}>2</ButtonCustom>
+          <ButtonCustom onClick={() => {}}>3</ButtonCustom>
+          <ButtonCustom onClick={() => {}}>4</ButtonCustom>
+          <ButtonCustom onClick={() => {}}>5</ButtonCustom>
+        </div>
       {pokemons.length === 0
         ? <MagnifyingGlass color='black' height={150} width={150} />
         : <div className='container__pokemons'>

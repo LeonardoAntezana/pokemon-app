@@ -2,6 +2,8 @@ import { COLORS } from "../constants/Colors";
 
 export const selectBackgroundColor = (types:string[]) => {
   switch(types[0]){
+    case 'normal':
+      return '#9caf76';
     case 'grass':
       return '#68d65f';
     case 'fire':

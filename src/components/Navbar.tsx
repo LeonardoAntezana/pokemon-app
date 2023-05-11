@@ -5,7 +5,7 @@ import '../sass/_components/navbar.scss'
 const Navbar = () => {
   return (
     <div className='navbar'>
-      <NavLink to='/' reloadDocument>
+      <NavLink to='/'>
         <h1 className='navbar__title'>POKEMON API</h1>
       </NavLink>
       <div className='navbar__right'>
