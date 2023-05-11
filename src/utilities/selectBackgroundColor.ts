@@ -27,6 +27,8 @@ export const selectBackgroundColor = (types:string[]) => {
       return '#19adff';
     case 'dark':
       return '#00375e';
+    case 'fairy':
+      return '#ee61a1';
     default:
       return '#fff'
   }
