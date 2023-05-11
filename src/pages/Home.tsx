@@ -4,7 +4,7 @@ import { transformData, getDataRequest, getTypes } from "../utilities"
 import { Link } from "react-router-dom"
 import Pokemon from "../models/pokemon"
 import { PokemonPromise } from "../models/pokemon.promise"
-import { InputCustom, ButtonCustom, PokemonCard } from "../components"
+import { InputCustom, ButtonCustom, PokemonCard, Pagination } from "../components"
 import { MagnifyingGlass } from "react-loader-spinner"
 import { ImSearch } from 'react-icons/im'
 import '../sass/_pages/Home.scss'
@@ -27,10 +27,11 @@ const Home = () => {
     catch {
       const pokes: PokemonPromise[] = data.pokemon.map((poke: any) => poke.pokemon);
       const res = await transformData(pokes);
-      setPokemons(res.slice(offSet.current, 12));
+      setPokemons(res.slice(0, 12));
     }
   }
 
+  // FILTRANDO SEGUN EL NOMBRE DEL POKEMON
   const getAllPokemons = async (url: string, name: string) => {
     if (name) {
       setPokemons([]);
@@ -41,6 +42,7 @@ const Home = () => {
     }
   }
 
+  // CARGA DE TIPOS DE POKEMONS PARA MANEJAR OPTIONS
   const getTypesPokemon = async (url: string) => {
     const types = await getTypes(url);
     setTypes(types);
@@ -51,7 +53,6 @@ const Home = () => {
     getPokemons(BASE_URL + request);
   }, [request])
 
-  // CARGA DE TIPOS DE POKEMONS PARA MANEJAR OPTIONS
   useEffect(() => {
     getTypesPokemon(BASE_URL + 'type');
   }, [])
@@ -59,6 +60,11 @@ const Home = () => {
   const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => inputValue.current = event.target.value;
 
   const onHandleSelect = (event: ChangeEvent<HTMLSelectElement>) => setRequest(`type/${event.target.value}`);
+
+  const onChangePage = (num: number) => {
+    offSet.current = 12 * num
+    setRequest(`pokemon?limit=12&offset=${offSet.current}`)
+  }; 
 
   return (
     <div className='home'>
@@ -83,13 +89,7 @@ const Home = () => {
           </ButtonCustom>
         </div>
       </div>
-      <div className='pagination'>
-        <ButtonCustom onClick={() => { }}>1</ButtonCustom>
-        <ButtonCustom onClick={() => { }}>2</ButtonCustom>
-        <ButtonCustom onClick={() => { }}>3</ButtonCustom>
-        <ButtonCustom onClick={() => { }}>4</ButtonCustom>
-        <ButtonCustom onClick={() => { }}>5</ButtonCustom>
-      </div>
+      <Pagination numbers={[1,2,3,4,5]} onClick={onChangePage}/>
       {pokemons.length === 0
         ? <MagnifyingGlass color='black' height={150} width={150} />
         : <div className='container__pokemons'>

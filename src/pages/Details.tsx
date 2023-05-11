@@ -15,7 +15,7 @@ const Details = () => {
 
   const { id, name, base_experience, images, types, abilities, stats, weight } = pokemon;
 
-  const filterImages = images.filter((pic: string, index: number) => index !== 0)
+  const filterImages = images.filter((pic: string) => pic !== null)
 
   const pokemonInState = () => favorites.some(poke => poke.id === id)
 

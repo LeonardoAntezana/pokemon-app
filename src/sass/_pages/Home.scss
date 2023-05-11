@@ -55,13 +55,6 @@
             }
         }
     }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-    }
-
     .container__pokemons {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(24rem, 0.7fr));
