@@ -41,6 +41,12 @@
             }
         }
     }
+    .loaderContainer{
+        display: flex;
+        justify-content: center;
+        margin: 25rem 0;
+    }
+
     .container__pokemons {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(24rem, 0.7fr));

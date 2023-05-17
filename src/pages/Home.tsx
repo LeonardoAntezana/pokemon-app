@@ -15,6 +15,7 @@ const Home = () => {
   const [request, setRequest] = useState<string>(`pokemon?limit=12&offset=${offSet.current}`)
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const inputValue = useRef<string>('');
+  const actualPage = useRef<number>(0);
 
   const getPokemons = async (url: string) => {
     setPokemons([]);
@@ -49,9 +50,10 @@ const Home = () => {
   const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => inputValue.current = event.target.value;
 
   const onChangePage = (num: number) => {
+    actualPage.current = num;
     offSet.current = 12 * num
     setRequest(`pokemon?limit=12&offset=${offSet.current}`)
-  }; 
+  };
 
   return (
     <div className='home'>
@@ -70,22 +72,24 @@ const Home = () => {
           </ButtonCustom>
         </div>
       </div>
-      <Pagination numbers={[1,2,3,4,5]} onClick={onChangePage}/>
       {pokemons.length === 0
-        ? <MagnifyingGlass color='black' height={150} width={150} />
-        : <div className='container__pokemons'>
-          {pokemons.map((poke: Pokemon) => {
-            return (
-              <Link
-                to={`/details/${poke.id}`}
-                state={{ pokemon: poke }}
-                key={poke.id}
-                className='card'>
-                <PokemonCard pokemon={poke} className='card' />
-              </Link>
-            )
-          })}
-        </div>
+        ? <div className='loaderContainer'><MagnifyingGlass color='black' height={150} width={150} /></div>
+        : <>
+          <Pagination numbers={[1, 2, 3, 4, 5]} onClick={onChangePage} firsState={actualPage.current}/>
+          <div className='container__pokemons'>
+            {pokemons.map((poke: Pokemon) => {
+              return (
+                <Link
+                  to={`/details/${poke.id}`}
+                  state={{ pokemon: poke }}
+                  key={poke.id}
+                  className='card'>
+                  <PokemonCard pokemon={poke} className='card' />
+                </Link>
+              )
+            })}
+          </div>
+        </>
       }
 
 

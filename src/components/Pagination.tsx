@@ -3,14 +3,15 @@ import { ButtonCustom } from "."
 import '../sass/_components/pagination.scss'
 
 interface Props {
+  firsState: number,
   numbers: number[]
   onClick: Function;
   className?: string,
 }
 
-const Pagination: FC<Props> = ({ numbers, onClick, className }) => {
+const Pagination: FC<Props> = ({ firsState, numbers, onClick, className }) => {
 
-  const [actualPage, setActualPage] = useState<number>(numbers[0])
+  const [actualPage, setActualPage] = useState<number>(firsState)
 
   const onHandleClick = (num: number) => {
     setActualPage(numbers[num-1])
@@ -23,8 +24,8 @@ const Pagination: FC<Props> = ({ numbers, onClick, className }) => {
         <ButtonCustom
           key={index}
           onClick={onHandleClick.bind(this, num)}
-          disabled={actualPage === num}
-          className={actualPage === num ? 'actualPage' : 'page'}
+          disabled={actualPage === index}
+          className={actualPage === index ? 'actualPage' : 'page'}
         >
           {num}
         </ButtonCustom>)}
