@@ -4,11 +4,12 @@ import '../sass/_components/Title.scss'
 
 interface Props{
   children: ReactNode,
+  className?: string,
 }
 
-const Title: FC<Props> = ({ children }) => {
+const Title: FC<Props> = ({ children, className }) => {
   return (
-    <h1 className='title'>
+    <h1 className={`title${className ? ` ${className}` : ''}`}>
       {children}
     </h1>
   )

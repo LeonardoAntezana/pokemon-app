@@ -3,9 +3,11 @@
 
 .stat {
   display: flex;
-  justify-content: space-between;
-
+  flex-wrap: wrap;
+  row-gap: 1rem;
   .stat__name {
+    display: flex;
+    align-items: center;
     flex: 0.5;
     text-transform: capitalize;
     font-size: $font-medium;
@@ -13,7 +15,8 @@
   }
 
   .stat__container__value {
-    flex: 1;
+    flex: 1 0.8;
+    min-height: 4rem;
     background-color: #fff;
     @include box-radius;
 
