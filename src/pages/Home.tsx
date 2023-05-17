@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, useEffect, useRef } from "react"
 import { BASE_URL } from "../constants/endPoints"
-import { transformData, getDataRequest, getTypes } from "../utilities"
+import { transformData, getDataRequest } from "../utilities"
 import { Link } from "react-router-dom"
 import Pokemon from "../models/pokemon"
 import { PokemonPromise } from "../models/pokemon.promise"
@@ -14,7 +14,6 @@ const Home = () => {
   const offSet = useRef<number>(0);
   const [request, setRequest] = useState<string>(`pokemon?limit=12&offset=${offSet.current}`)
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
-  const [types, setTypes] = useState<string[]>();
   const inputValue = useRef<string>('');
 
   const getPokemons = async (url: string) => {
@@ -42,24 +41,12 @@ const Home = () => {
     }
   }
 
-  // CARGA DE TIPOS DE POKEMONS PARA MANEJAR OPTIONS
-  const getTypesPokemon = async (url: string) => {
-    const types = await getTypes(url);
-    setTypes(types);
-  }
-
   // CARGA DE POKEMONS
   useEffect(() => {
     getPokemons(BASE_URL + request);
   }, [request])
 
-  useEffect(() => {
-    getTypesPokemon(BASE_URL + 'type');
-  }, [])
-
   const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => inputValue.current = event.target.value;
-
-  const onHandleSelect = (event: ChangeEvent<HTMLSelectElement>) => setRequest(`type/${event.target.value}`);
 
   const onChangePage = (num: number) => {
     offSet.current = 12 * num
@@ -69,12 +56,6 @@ const Home = () => {
   return (
     <div className='home'>
       <div className='filters'>
-        <select
-          onChange={onHandleSelect}
-          className='home__select'
-        >
-          {types?.map((t, index) => <option key={index} value={t}>{t}</option>)}
-        </select>
         <div className="container__search">
           <InputCustom
             onChange={onHandleChange}

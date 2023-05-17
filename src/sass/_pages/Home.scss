@@ -7,24 +7,9 @@
 
     .filters {
         display: flex;
-        flex-wrap: wrap;
-        gap: 3rem;
-        justify-content: center;
-
-        .home__select {
-            flex: 0.3;
-            border-radius: 0.5rem;
-            color: #fff;
-            font-size: $font-sm;
-            text-align: center;
-            text-transform: uppercase;
-            background-color: $color-dark;
-            padding: 1.5rem 1rem;
-            border-right: 1rem solid transparent;
-        }
 
         .container__search {
-            flex: 3;
+            flex: 1;
             display: flex;
             flex-wrap: wrap;
             row-gap: 2rem;
@@ -48,9 +33,10 @@
                 border-bottom-left-radius: 0;
                 flex: 0.1;
                 border-left: 3px solid $color-dark;
-                transition: background-color 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
                 &:hover{
                     background-color: $color-dark;
+                    border-left-color: #fff;
                 }
             }
         }
