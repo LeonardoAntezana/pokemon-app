@@ -24,9 +24,9 @@ const Details = () => {
   return (
     <div className='container'>
       <div className='box'>
-        <Carousel images={filterImages} />
+        <Carousel images={filterImages} className='carousel'/>
         <div className='info'>
-          <Title>{name}</Title>
+          <Title className='name'>{name}</Title>
           <div>
             <p>Experience base: {base_experience}</p>
             <p>Weight: {weight}</p>
@@ -42,7 +42,7 @@ const Details = () => {
         <ButtonCustom
           onClick={onHandleFav}
           className='buttonAdd'>
-          agregar a favoritos
+          {pokemonInState() ? 'eliminar de favoritos' : 'agregar a favoritos'}
           <AiTwotoneStar size={25} color={pokemonInState() ? 'red' : 'white'}/>
         </ButtonCustom>
       </div>
