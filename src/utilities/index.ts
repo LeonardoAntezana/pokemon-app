@@ -1,3 +1,4 @@
+export * from './capitalizeWord';
 export * from './createPokemon';
 export * from './getDataRequest';
 export * from './getLocalStorage';
