@@ -11,7 +11,7 @@ interface Props {
 
 const PokemonCard: FC<Props> = ({ pokemon, className }) => {
   const { name, images, types } = pokemon;
-  const color = selectBackgroundColor(types);
+  const color = selectBackgroundColor(types[0]);
   return (
     <div
       className={`pokemonCard${className ? ` ${className}` : ''}`}
