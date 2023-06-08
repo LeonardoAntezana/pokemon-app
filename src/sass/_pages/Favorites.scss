@@ -15,4 +15,15 @@
     justify-content: center;
     gap: 5rem;
   }
+
+  .noFavorites{
+    padding: 2rem 1rem;
+    color: $color-secondary;
+    text-transform: uppercase;
+    background-color: $color-dark;
+    width: fit-content;
+    margin: auto;
+    margin-top: 20rem;
+    border-radius: 0.5rem;
+  }
 }

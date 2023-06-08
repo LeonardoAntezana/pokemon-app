@@ -1,6 +1,6 @@
 import { useAppSelector } from "../redux/hooks";
 import { Link } from "react-router-dom";
-import { PokemonCard } from "../components";
+import { PokemonCard, Title } from "../components";
 import '../sass/_pages/Favorites.scss'
 
 const Favorites = () => {
@@ -8,13 +8,17 @@ const Favorites = () => {
 
   return (
     <div className='favorites__screen'>
-      <h1 className='favorites__screen__title'>Favoritos</h1>
-      <div className='favorites__container'>
-        {favorites.map(pokemon => 
-        <Link to={`/details/${pokemon.id}`} key={pokemon.id} state={{pokemon}}>
-          <PokemonCard pokemon={pokemon}/>
-        </Link>)}
-      </div>
+      {favorites.length === 0
+        ? <Title className='noFavorites'>There are no pokemon yet!</Title>
+        : <>
+          <h1 className='favorites__screen__title'>Favorites</h1>
+          <div className='favorites__container'>{favorites.map(pokemon =>
+            <Link to={`/details/${pokemon.id}`} key={pokemon.id} state={{ pokemon }}>
+              <PokemonCard pokemon={pokemon} />
+            </Link>)}
+          </div>
+        </>
+      }
     </div>
   )
 }
