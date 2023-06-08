@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { addFavorite, deleteFavorite } from "../redux/slices/favoritesSlice";
-import { CapitalizeWord, selectBackgroundColor } from "../utilities";
+import { CapitalizeWord, selectBackgroundColor, toastNotify } from "../utilities";
 import { Title, Carousel, Stat, ButtonCustom } from "../components";
 import { StatPokemon } from "../models/pokemon.stat";
+import Pokemon from "../models/pokemon";
 import { AiTwotoneStar } from 'react-icons/ai'
 import '../sass/_pages/Details.scss'
 
@@ -13,15 +14,24 @@ const Details = () => {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(state => state.favorites.value);
 
-  const { state: { pokemon } } = useLocation();
+  const { state: { pokemon } }  = useLocation();
 
-  const { id, name, base_experience, images, types, abilities, stats, weight } = pokemon;
+  const { id, name, base_experience, images, types, abilities, stats, weight } : Pokemon = pokemon;
 
   const filterImages = images.filter((pic: string) => pic !== null)
 
   const pokemonInState = () => favorites.some(poke => poke.id === id)
 
-  const onHandleFav = () => pokemonInState() ? dispatch(deleteFavorite(id)) : dispatch(addFavorite(pokemon))
+  const onHandleFav = () => {
+    if(pokemonInState()){
+      dispatch(deleteFavorite(id));
+      toastNotify(`Delete pokemon ${CapitalizeWord(name)}`, 'top-center', 1500, true, true, 'dark');
+    }
+    else{
+      dispatch(addFavorite(pokemon));
+      toastNotify(`Add pokemon ${CapitalizeWord(name)}`, 'top-center', 1500, true, true, 'dark');
+    }
+  }
 
   useEffect(() => {
     document.title = `Pokemon - ${CapitalizeWord(name)}`
