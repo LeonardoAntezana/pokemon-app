@@ -59,7 +59,7 @@ const Home = () => {
           <InputCustom
             onChange={onHandleChange}
             className='input__search'
-            placeholder='Buscar pokemon...'
+            placeholder='Search pokemon...'
             type="search"
           />
           <ButtonCustom
@@ -87,7 +87,7 @@ const Home = () => {
           </div>
         </>
         : nullSearch.current 
-        ? <Title className='nullSearch'>No se han encontrado pokemons</Title>
+        ? <Title className='nullSearch'>No pokemon found!</Title>
         : <div className='loaderContainer'><MagnifyingGlass color='black' height={150} width={150} /></div> 
       }
     </div>
