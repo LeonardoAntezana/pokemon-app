@@ -29,7 +29,9 @@ export const selectBackgroundColor = (type: string) => {
       return '#00375e';
     case 'fairy':
       return '#ee61a1';
+    case 'ghost':
+      return '#c8c8a9';
     default:
-      return '#fff'
+      return COLORS.secondary;
   }
 }
