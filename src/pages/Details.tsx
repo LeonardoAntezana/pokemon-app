@@ -50,12 +50,12 @@ const Details = () => {
           </div>
         </div>
         <div className='container__stats'>
-          {stats.map((st: StatPokemon, index: number) => <Stat key={index} stat={st} />)}
+          {stats.map((st: StatPokemon, index: number) => <Stat key={index} stat={st} styleText='name__stat' />)}
         </div>
         <ButtonCustom
           onClick={onHandleFav}
           className='buttonAdd'>
-          {pokemonInState() ? 'eliminar de favoritos' : 'agregar a favoritos'}
+          {pokemonInState() ? 'delete to favorites' : 'add to favorites'}
           <AiTwotoneStar size={25} color={pokemonInState() ? 'red' : 'white'}/>
         </ButtonCustom>
       </div>

@@ -4,7 +4,7 @@ import { transformData, getDataRequest } from "../utilities"
 import { Link } from "react-router-dom"
 import Pokemon from "../models/pokemon"
 import { PokemonPromise } from "../models/pokemon.promise"
-import { InputCustom, ButtonCustom, PokemonCard, Pagination } from "../components"
+import { InputCustom, ButtonCustom, PokemonCard, Pagination, Title } from "../components"
 import { MagnifyingGlass } from "react-loader-spinner"
 import { ImSearch } from 'react-icons/im'
 import '../sass/_pages/Home.scss'
@@ -16,19 +16,13 @@ const Home = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const inputValue = useRef<string>('');
   const actualPage = useRef<number>(0);
+  const nullSearch = useRef<boolean>();
 
   const getPokemons = async (url: string) => {
     setPokemons([]);
     const data = await getDataRequest(url);
-    try {
-      const pokes = await transformData(data.results);
-      setPokemons(pokes);
-    }
-    catch {
-      const pokes: PokemonPromise[] = data.pokemon.map((poke: any) => poke.pokemon);
-      const res = await transformData(pokes);
-      setPokemons(res.slice(0, 12));
-    }
+    const pokes = await transformData(data.results);
+    setPokemons(pokes);
   }
 
   // FILTRANDO SEGUN EL NOMBRE DEL POKEMON
@@ -38,7 +32,10 @@ const Home = () => {
       const data = await getDataRequest(url);
       const filterPokes = data.results.filter((poke: PokemonPromise) => poke.name.includes(name));
       const res = await transformData(filterPokes);
-      setPokemons(res);
+      if (res.length === 0) {
+        nullSearch.current = true;
+      }
+      setPokemons(res.slice(0, 20));
     }
   }
 
@@ -72,10 +69,9 @@ const Home = () => {
           </ButtonCustom>
         </div>
       </div>
-      {pokemons.length === 0
-        ? <div className='loaderContainer'><MagnifyingGlass color='black' height={150} width={150} /></div>
-        : <>
-          <Pagination numbers={[1, 2, 3, 4, 5]} onClick={onChangePage} firsState={actualPage.current}/>
+      {pokemons.length !== 0
+        ? <>
+          <Pagination numbers={[1, 2, 3, 4, 5]} onClick={onChangePage} firsState={actualPage.current} />
           <div className='container__pokemons'>
             {pokemons.map((poke: Pokemon) => {
               return (
@@ -90,10 +86,10 @@ const Home = () => {
             })}
           </div>
         </>
+        : nullSearch.current 
+        ? <Title className='nullSearch'>No se han encontrado pokemons</Title>
+        : <div className='loaderContainer'><MagnifyingGlass color='black' height={150} width={150} /></div> 
       }
-
-
-
     </div>
   )
 }
