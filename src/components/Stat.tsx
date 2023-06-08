@@ -4,9 +4,10 @@ import { StatPokemon } from "../models/pokemon.stat"
 
 interface Props {
   stat: StatPokemon,
+  styleText?: string
 }
 
-const Stat: FC<Props> = ({ stat }) => {
+const Stat: FC<Props> = ({ stat, styleText }) => {
 
   let { name, value } = stat
 
@@ -21,7 +22,7 @@ const Stat: FC<Props> = ({ stat }) => {
 
   return (
     <div className='stat'>
-      <span className='stat__name'>{name}</span>
+      <span className={`stat__name${styleText ? ` ${styleText}` : ''}`}>{name}</span>
       <div className='stat__container__value'>
         <div className='stat__value' style={{width: `${valueSlow * 2}px`, maxWidth: '95%'}}></div>
       </div>
